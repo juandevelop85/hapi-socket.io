@@ -32,8 +32,8 @@ async () => {
     config: {
       auth: false,
       handler: handlers.getUser,
-      description: 'Retorna las citas',
-      notes: 'Devuelve las citas de un afiliado ',
+      description: 'Retorna un usuario',
+      notes: 'Devuelve el usuario seleccionado',
       plugins: {
         'hapi-swagger': {
           payloadType: 'form'
@@ -54,6 +54,16 @@ async () => {
       }
     }
   })
+}
+
+//handler function
+module.exports.emitCitaXAfiliado = async function(context, h){
+  var socket = context.socket
+
+  //console.log("emit: ", context.request.seneca)
+  const result = await context.request.seneca.actAsync({role: "user", cmd: "getUser", payload : context.data, token : ""});
+  socket.emit('testemit', result)
+  return h.continue;
 }
 ```
 

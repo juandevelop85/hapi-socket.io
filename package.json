@@ -1,0 +1,33 @@
+{
+  "name": "hapi-socket.io",
+  "version": "0.0.1",
+  "description": "Implementacion de socket io para hapi js",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "setup": "npm install  && npm run validate",
+    "test": "echo \"No test specified\" && exit 1"
+  },
+  "repository":{
+    "type": "git",
+    "url": "https://github.com/juandevelop85/hapi-socket.io"
+  },
+  "bugs": {
+    "url": "https://github.com/juandevelop85/hapi-socket.io",
+    "email": "juandevelop85@gmail.com"
+  },
+  "keywords": [
+    "socketio",
+    "node",
+    "realtime",
+    "hapijs",
+    "hapi"
+  ],
+  "author": "Juan Vernaza Lopez <juandvelop85@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^2.1.1"
+  }
+}

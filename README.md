@@ -32,8 +32,8 @@ async () => {
     config: {
       auth: false,
       handler: handlers.getUser,
-      description: 'Retorna un usuario',
-      notes: 'Devuelve el usuario seleccionado',
+      description: 'Example description',
+      notes: 'Example notes',
       plugins: {
         'hapi-swagger': {
           payloadType: 'form'
@@ -60,8 +60,7 @@ async () => {
 module.exports.emitgetUser = async function(context, h){
   var socket = context.socket
 
-  //console.log("emit: ", context.request.seneca)
-  const result = await context.request.seneca.actAsync({role: "user", cmd: "getUser", payload : context.data, token : ""});
+  const result = await context.server.seneca.actAsync({role: "user", cmd: "getUser", payload : context.data, token : ""});
   socket.emit('testemit', result)
   return h.continue;
 }

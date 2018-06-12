@@ -57,7 +57,7 @@ async () => {
 }
 
 //handler function
-module.exports.emitCitaXAfiliado = async function(context, h){
+module.exports.emitgetUser = async function(context, h){
   var socket = context.socket
 
   //console.log("emit: ", context.request.seneca)

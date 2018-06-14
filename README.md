@@ -56,13 +56,40 @@ async () => {
   })
 }
 
-//handler function
+//handler function respond to the same customer
 module.exports.emitgetUser = async function(context, h){
   var socket = context.socket
 
   const result = await context.server.seneca.actAsync({role: "user", cmd: "getUser", payload : context.data, token : ""});
   socket.emit('testemit', result)
   return h.continue;
+}
+
+//handler function to emit to all customer
+module.exports.emitgetUser = async function(context, h){
+  var io = context.io
+
+  const result = await context.server.seneca.actAsync({role: "user", cmd: "getUser", payload : context.data, token : ""});
+  io.sockets.emit('testemit', result)
+  return h.continue;
+}
+
+//handler function to emit to others customer
+module.exports.emitgetUser = async function(context, h){
+  var socket = context.socket
+
+  const result = await context.server.seneca.actAsync({role: "user", cmd: "getUser", payload : context.data, token : ""});
+  socket.broadcast.emit('testemit', result)
+  return h.continue;
+}
+
+//The context variable contains...
+{
+  io: io,
+  socket: socket,
+  event: event,
+  data: data,
+  server: ser
 }
 ```
 

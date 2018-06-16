@@ -93,6 +93,19 @@ module.exports.emitgetUser = async function(context, h){
 }
 ```
 
+## Client Example
+```js
+var io = require('socket.io-client')
+var ioClient = io.connect('http://localhost:9001/', {transports: ['websocket']});
+console.log("ioClient", ioClient)
+ioClient.on('connect', function(){
+  console.log("connect")
+  ioClient.emit('event', {test: 1});
+});
+ioClient.on("testemit", (msg) => console.log(msg));
+ioClient.on('disconnect', function(){console.log("disconnect")});
+```
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

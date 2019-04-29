@@ -142,7 +142,7 @@ this.socket = io.connect(URL_SERVER, {
 });
 ```
 
-please put this option after define your auth strategy
+please do the registry after define your auth strategy
 
 ```js
 //Auth API with JWT

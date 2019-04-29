@@ -3,9 +3,11 @@
 Implementacion de socket.io para hapijs .
 
 ### Requirements
-* Hapi js v17 +
+
+- Hapi js v17 +
 
 ## Installation
+
 `$ npm install hapi-socket.io --save`
 
 ## Usage
@@ -17,7 +19,10 @@ async () => {
   await server.register({
     plugin: hapiSocketIo,
     options: {
-      //Adicionar las opciones necesarias, el plugin tiene las opciones por defecto de socket.io las cuales puede ver en https://socket.io/docs/server-api/#new-server-httpserver-options
+        auth: 'jwt', //jwt Strategy
+        socketoptions: {
+            //Adicionar las opciones necesarias, el plugin tiene las opciones por defecto de socket.io las cuales puede ver en https://socket.io/docs/server-api/#new-server-httpserver-options
+        }
     }
   })
   ...
@@ -25,6 +30,7 @@ async () => {
 ```
 
 ## Using hapi-socket.io
+
 ```js
   server.route({
     method: "GET",
@@ -94,22 +100,58 @@ module.exports.emitgetUser = async function(context, h){
 ```
 
 ## Client Example
+
 ```js
-var io = require('socket.io-client')
-var ioClient = io.connect('http://localhost:9001/', {transports: ['websocket']});
-console.log("ioClient", ioClient)
-ioClient.on('connect', function(){
-  console.log("connect")
-  ioClient.emit('event', {test: 1});
+var io = require('socket.io-client');
+var ioClient = io.connect('http://localhost:9001/', {
+  transports: ['websocket']
 });
-ioClient.on("testemit", (msg) => console.log(msg));
-ioClient.on('disconnect', function(){console.log("disconnect")});
+console.log('ioClient', ioClient);
+ioClient.on('connect', function() {
+  console.log('connect');
+  ioClient.emit('event', { test: 1 });
+});
+ioClient.on('testemit', msg => console.log(msg));
+ioClient.on('disconnect', function() {
+  console.log('disconnect');
+});
+```
+
+## hapi-socket.io options
+
+auth: text string with the defined security strategy, false, in case of not requiring authentication
+socketoptions: you can define the options of the socket io library
+
+## Auth options
+
+We have added, the option to validate with the authentication strategy defined in the server, This option is valid only with the socket configuration that allows the sending of extraHeaders.
+
+```js
+// Client example
+this.socket = io.connect(URL_SERVER, {
+  forceNew: true,
+  jsonp: false,
+  transports: ['polling'],
+  transportOptions: {
+    polling: {
+      extraHeaders: {
+        Authorization: token // heres go your token
+      }
+    }
+  }
+});
 ```
 
 ## Contributing
+
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 Please make sure to update tests as appropriate.
 
 ## License
+
 [MIT](https://choosealicense.com/licenses/mit/)
+
+```
+
+```

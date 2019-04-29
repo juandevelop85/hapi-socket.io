@@ -142,6 +142,32 @@ this.socket = io.connect(URL_SERVER, {
 });
 ```
 
+please put this option after define your auth strategy
+
+```js
+//Auth API with JWT
+server.auth.strategy('jwt', 'jwt', {
+  key: jwtkey,
+  validate: validate,
+  verifyOptions: {
+    ignoreExpiration: false, // do not reject expired tokens
+    algorithms: ['HS256'] // specify your secure algorithm
+  },
+  urlKey: true
+});
+
+server.auth.default('jwt');
+
+await server.register({
+  plugin: hapiSocketIo,
+  options: {
+    auth: 'jwt',
+    socketoptions: {}
+    //add the necessary options, the plugin has the default options of socket.io which you can see in https://socket.io/docs/server-api/#new-server-httpserver-options
+  }
+});
+```
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.

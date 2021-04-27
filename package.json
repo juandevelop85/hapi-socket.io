@@ -28,7 +28,7 @@
   "author": "Juan Vernaza Lopez <juandvelop85@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "socket.io": "^2.1.1",
+    "socket.io": "^3.0.0",
     "@hapi/hoek": "^8.2.4"
   }
 }
